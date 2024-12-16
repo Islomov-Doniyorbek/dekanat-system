@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O'qituvchilar Bo'limi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #28a745;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .container {
+            margin: 20px auto;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .teacher {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .teacher:hover {
+            transform: scale(1.02);
+        }
+
+        .teacher h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .teacher span {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .biography {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e9f7ef;
+            border-left: 4px solid #28a745;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>O'qituvchilar Bo'limi</h1>
+    </header>
+    <nav>
+        button
+    </nav>
+    <div class="container" id="teacherContainer">
+        <!-- O'qituvchilar ro'yxati -->
+    </div>
+
+
+    <script>
+        const teachers = [
+            { name: "Dilshod Rahimov", subject: "Elektronika va sxemalar", bio: "Dilshod Rahimov elektronika va sxemalar bo'yicha yetakchi mutaxassis. U 20 dan ortiq ilmiy maqolalar muallifi." },
+            { name: "Zaynab Karimova", subject: "Oliy matematika", bio: "Zaynab Karimova oliy matematika sohasida katta tajribaga ega bo'lib, talabalarga nazariy va amaliy bilimlarni yetkazishga qaratilgan." },
+            { name: "Kamoliddin Safarov", subject: "Falsafa", bio: "Kamoliddin Safarov falsafa bo'yicha mahoratli pedagog bo'lib, ijtimoiy va axloqiy masalalarni o'rganishga ixtisoslashgan." },
+            { name: "Shahnoza Yusupova", subject: "Akademik yozuv", bio: "Shahnoza Yusupova akademik yozuv bo'yicha o'quv dasturlarini yaratgan va ko'plab talabalarga ilmiy ishlarda yordam bergan." },
+            { name: "Botir Ergashev", subject: "Differensial tenglamalar", bio: "Botir Ergashev differensial tenglamalar bo'yicha yetakchi o'qituvchi va nazariy matematikaga katta hissa qo'shgan." },
+            { name: "Nigora Qodirova", subject: "Kiberxavfsizlik", bio: "Nigora Qodirova kiberxavfsizlik bo'yicha xalqaro sertifikatlarga ega va axborot xavfsizligini ta'minlashda tajribaga ega." },
+            { name: "Azamat Tursunov", subject: "Sun'iy intellekt", bio: "Azamat Tursunov sun'iy intellekt bo'yicha mutaxassis bo'lib, mashinaviy o'rganish va chuqur o'rganish texnologiyalarida mahoratli." },
+            { name: "Munira Raxmatullayeva", subject: "Ma'lumotlar tuzilmasi va algoritmlar", bio: "Munira Raxmatullayeva dasturlashning asosiy tamoyillari va ma'lumotlar tuzilmalarini o'qitishda katta tajribaga ega." },
+            { name: "Rustam Karimov", subject: "Kompyuter tashkil etish", bio: "Rustam Karimov kompyuter tizimlari va ularning arxitekturasi bo'yicha ko'p yillik tajribaga ega." },
+            { name: "Gulnora Sayfiddinova", subject: "Web ilovalar yaratish", bio: "Gulnora Sayfiddinova zamonaviy web ilovalar yaratishda tajribaga ega va talabalar bilan birgalikda ko'plab loyihalarni amalga oshirgan." },
+            { name: "Jasur Akbarov", subject: "Ma'lumotlar bazasi", bio: "Jasur Akbarov ma'lumotlar bazasi boshqaruvi va optimallashtirish bo'yicha yetakchi mutaxassis." }
+        ];
+
+        function renderTeachers() {
+            const container = document.getElementById('teacherContainer');
+            container.innerHTML = '';
+
+            teachers.forEach((teacher, index) => {
+                const teacherDiv = document.createElement('div');
+                teacherDiv.className = 'teacher';
+                teacherDiv.innerHTML = `
+                    <div>
+                        <h3>${teacher.name}</h3>
+                        <span>${teacher.subject}</span>
+                    </div>
+                `;
+
+                const bioDiv = document.createElement('div');
+                bioDiv.className = 'biography';
+                bioDiv.innerText = teacher.bio;
+
+                teacherDiv.addEventListener('click', () => {
+                    const isVisible = bioDiv.style.display === 'block';
+                    bioDiv.style.display = isVisible ? 'none' : 'block';
+                });
+
+                container.appendChild(teacherDiv);
+                container.appendChild(bioDiv);
+            });
+        }
+
+        renderTeachers();
+    </script>
+</body>
+</html>

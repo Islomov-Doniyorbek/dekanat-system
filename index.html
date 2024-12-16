@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dekanat Axborot Tizimi - Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .container {
+            margin: 20px auto;
+            max-width: 900px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #007bff;
+        }
+
+        .card p {
+            margin: 10px 0 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dekanat Axborot Tizimi</h1>
+    </header>
+
+    <div class="container">
+        <h2>Dashboard</h2>
+        <p>Quyidagi bo'limlardan birini tanlang:</p>
+
+        <div class="dashboard">
+            <div class="card" onclick="navigateTo('students.html')">
+                <h3>Talabalar</h3>
+                <p>Talabalar ro'yxatini ko'rish va boshqarish</p>
+            </div>
+
+            <div class="card" onclick="navigateTo('teachers.html')">
+                <h3>O'qituvchilar</h3>
+                <p>O'qituvchilar ro'yxatini boshqarish</p>
+            </div>
+
+            <div class="card" onclick="navigateTo('subject.html')">
+                <h3>Fanlar</h3>
+                <p>Fanlar ro'yxatini boshqarish</p>
+            </div>
+
+            <div class="card" onclick="navigateTo('schedules.html')">
+                <h3>Jadval</h3>
+                <p>Dars jadvalini ko'rish va tahrirlash</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>

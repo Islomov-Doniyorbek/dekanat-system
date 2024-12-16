@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fanlarni Boshqarish</title>
+    <style>
+        /* Umumiy uslublar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        h2 {
+            color: #444;
+            margin-bottom: 10px;
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Fanlar ro'yxati */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #f9f9f9;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        li:hover {
+            transform: scale(1.02);
+        }
+
+        li button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        li button:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Xatolik va tasdiqlash xabarlar */
+        .alert {
+            padding: 10px;
+            background-color: #ff9800;
+            color: white;
+            margin-top: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .success {
+            background-color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fanlarni Boshqarish</h1>
+
+        <!-- Fan qo'shish formasi -->
+        <h2>Yangi fan qo'shish</h2>
+        <form id="addSubjectForm">
+            <input type="text" id="subjectName" placeholder="Fan nomi" required>
+            <input type="text" id="subjectCode" placeholder="Fan kodi" required>
+            <textarea id="subjectDescription" placeholder="Tavsif" required></textarea>
+            <button type="submit">Qo'shish</button>
+        </form>
+
+        <!-- Tasodifiy tanlangan fanlar -->
+        <h2>Tasodifiy tanlangan fanlar</h2>
+        <ul id="subjectsList">
+            <!-- Tasodifiy fanlar bu yerga chiqariladi -->
+        </ul>
+    </div>
+
+    <script>
+        // Fanlar ro'yxati
+        const subjects = [
+            { name: "Matematika", code: "MATH101", description: "Matematika asoslari." },
+            { name: "Fizika", code: "PHY101", description: "Fizika nazariyasi." },
+            { name: "Kimyo", code: "CHEM101", description: "Kimyo jarayonlari." },
+            { name: "Informatika", code: "CS101", description: "Dasturlash asoslari." },
+            { name: "Biologiya", code: "BIO101", description: "Biologiya asoslari." }
+        ];
+
+        // DOM elementlari
+        const addSubjectForm = document.getElementById('addSubjectForm');
+        const subjectNameInput = document.getElementById('subjectName');
+        const subjectCodeInput = document.getElementById('subjectCode');
+        const subjectDescriptionInput = document.getElementById('subjectDescription');
+        const subjectsList = document.getElementById('subjectsList');
+
+        // Fanlarni render qilish
+        function renderSubjects() {
+            subjectsList.innerHTML = '';
+
+            subjects.forEach((subject, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div>
+                        <strong>${subject.name}</strong> (${subject.code})
+                        <p>${subject.description}</p>
+                    </div>
+                    <button onclick="deleteSubject(${index})">O'chirish</button>
+                `;
+                subjectsList.appendChild(li);
+            });
+        }
+
+        // Fan qo'shish
+        addSubjectForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const newSubject = {
+                name: subjectNameInput.value,
+                code: subjectCodeInput.value,
+                description: subjectDescriptionInput.value
+            };
+
+            subjects.push(newSubject);
+            renderSubjects();
+            addSubjectForm.reset();
+            showAlert("Fan muvaffaqiyatli qo'shildi!", "success");
+        });
+
+        // Fanni o'chirish
+        function deleteSubject(index) {
+            subjects.splice(index, 1);
+            renderSubjects();
+            showAlert("Fan muvaffaqiyatli o'chirildi!", "success");
+        }
+
+        // Xabarlarni ko'rsatish
+        function showAlert(message, type) {
+            const alert = document.createElement('div');
+            alert.classList.add('alert', type);
+            alert.innerText = message;
+
+            const container = document.querySelector('.container');
+            container.appendChild(alert);
+
+            setTimeout(() => {
+                alert.remove();
+            }, 3000);
+        }
+
+        // Sahifa yuklanganda fanlarni ko'rsatish
+        document.addEventListener('DOMContentLoaded', renderSubjects);
+    </script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guruh Talabalari Baholari</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .group-select {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        td {
+            background-color: #fafafa;
+        }
+
+        .highlight {
+            background-color: #ffff99;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Guruh Talabalari Baholari</h1>
+
+        <!-- Guruh tanlash -->
+        <div class="group-select">
+            <label for="groupSelect">Guruhni tanlang:</label>
+            <select id="groupSelect">
+                <option value="group1">Guruh 1</option>
+                <option value="group2">Guruh 2</option>
+                <option value="group3">Guruh 3</option>
+            </select>
+        </div>
+
+        <!-- Talabalar baholari -->
+        <table id="studentGrades">
+            <thead>
+                <tr>
+                    <th>Talaba</th>
+                    <th>Matematika</th>
+                    <th>Informatika</th>
+                    <th>Fizika</th>
+                    <th>Kiberxavfsizlik</th>
+                </tr>
+            </thead>
+            <tbody id="studentTableBody">
+                <!-- JavaScript orqali talabalar va baholar joylanadi -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Guruhlar uchun talabalar va ularning baholari
+        const studentData = {
+            group1: [
+                { name: "Ali", grades: [85, 90, 78, 92] },
+                { name: "Vali", grades: [80, 85, 82, 88] },
+                { name: "Zohid", grades: [75, 80, 70, 85] },
+                { name: "Yusuf", grades: [88, 90, 84, 94] },
+                { name: "Laylo", grades: [92, 95, 93, 98] },
+                { name: "Gulnoza", grades: [78, 80, 79, 85] },
+                { name: "Bekzod", grades: [88, 85, 84, 87] },
+                { name: "Ravshan", grades: [91, 92, 89, 90] },
+                { name: "Shaxzod", grades: [82, 84, 77, 89] },
+                { name: "Diyor", grades: [78, 75, 76, 80] }
+            ],
+            group2: [
+                { name: "Rustam", grades: [70, 80, 85, 88] },
+                { name: "Shavkat", grades: [85, 87, 78, 93] },
+                { name: "Nodir", grades: [80, 84, 79, 86] },
+                { name: "Anvar", grades: [89, 90, 91, 95] },
+                { name: "Zafar", grades: [88, 85, 86, 92] },
+                { name: "Doston", grades: [75, 78, 80, 82] },
+                { name: "Ulugbek", grades: [91, 95, 92, 94] },
+                { name: "Sanjar", grades: [77, 79, 72, 76] },
+                { name: "Murod", grades: [92, 89, 93, 95] },
+                { name: "Shuxrat", grades: [84, 87, 88, 90] }
+            ],
+            group3: [
+                { name: "Javlon", grades: [83, 85, 80, 88] },
+                { name: "Dilshod", grades: [88, 92, 89, 90] },
+                { name: "Farid", grades: [76, 80, 78, 83] },
+                { name: "Qodir", grades: [89, 90, 85, 92] },
+                { name: "Sherzod", grades: [80, 75, 78, 81] },
+                { name: "Shahrizod", grades: [95, 94, 96, 97] },
+                { name: "Otabek", grades: [72, 75, 78, 81] },
+                { name: "Sardor", grades: [82, 83, 85, 90] },
+                { name: "Erkin", grades: [91, 90, 93, 92] },
+                { name: "Bekzod", grades: [70, 78, 62, 76] }
+            ]
+        };
+
+        // Guruhni tanlaganda jadvalni yangilash
+        const groupSelect = document.getElementById('groupSelect');
+        const studentTableBody = document.getElementById('studentTableBody');
+
+        function updateGrades(group) {
+            const students = studentData[group];
+            studentTableBody.innerHTML = '';  // Jadvalni tozalash
+
+            students.forEach(student => {
+                const row = document.createElement('tr');
+
+                // Talaba ismi
+                const nameCell = document.createElement('td');
+                nameCell.textContent = student.name;
+                row.appendChild(nameCell);
+
+                // Baholar
+                student.grades.forEach(grade => {
+                    const gradeCell = document.createElement('td');
+                    gradeCell.textContent = grade;
+                    row.appendChild(gradeCell);
+                });
+
+                studentTableBody.appendChild(row);
+            });
+        }
+
+        // Guruh tanlanganda jadvalni yangilash
+        groupSelect.addEventListener('change', function() {
+            updateGrades(groupSelect.value);
+        });
+
+        // Dastlabki guruhni ko'rsatish
+        document.addEventListener('DOMContentLoaded', () => {
+            updateGrades(groupSelect.value);
+        });
+    </script>
+</body>
+</html>
